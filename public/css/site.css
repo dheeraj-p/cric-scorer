@@ -23,6 +23,9 @@ main {
     width: 100vw;
     height: 84vh;
     background: whitesmoke;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 footer {
@@ -32,4 +35,20 @@ footer {
 
     background: #148044;
     color: whitesmoke;
+}
+
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 40vh;
+    width: 100vw;
+}
+
+.size-large {
+    width: 80vw;
+    padding: 6px;
+    font-size: 1.2em;
 }
