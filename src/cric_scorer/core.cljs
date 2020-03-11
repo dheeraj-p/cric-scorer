@@ -4,7 +4,8 @@
             [reitit.frontend.easy :as rfe]
             [cric-scorer.home_page :refer [home]]
             [cric-scorer.select_initial_players_page :refer [select-initial-players]]
-            [cric-scorer.api_client :refer [fetch-action]]))
+            [cric-scorer.api_client :refer [fetch-action]]
+            [cric-scorer.scoring_page :refer [scoring-page]]))
 
 (defonce match (r/atom nil))
 
@@ -33,10 +34,13 @@
      :view home}]
    ["/select_initial_players"
     {:name :select-initial-players
-     :view select-initial-players}]])
+     :view select-initial-players}]
+   ["/scoring-page"
+    {:name :scoring-page
+     :view scoring-page}]])
 
 (defn mount-root []
-  (fetch-action perform-action #())
+  ;(fetch-action perform-action #())
   (r/render [app-root] (.getElementById js/document "app")))
 
 (defn init! []

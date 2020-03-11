@@ -52,3 +52,46 @@ footer {
     padding: 6px;
     font-size: 1.2em;
 }
+
+.score-comp {
+    display: flex;
+    border: 1px rgba(128, 128, 128, 0.6) solid;
+    background: rgba(128, 128, 128, 0.13);
+    padding: 4vw;
+    border-radius: 1vw;
+    width: 90vw;
+    margin: 2vh 0;
+}
+
+.score {
+    justify-content: space-between;
+    font-size: larger;
+    align-items: flex-end;
+    width: 70vw;
+    display: flex;
+    height: 100%;
+}
+
+.value-display {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.value-header{
+    margin-bottom: 1vh;
+}
+
+.runs {
+    font-size: 4vh;
+    margin-right: 1vw ;
+}
+
+.low-focus{
+    color: grey;
+    font-size: small;
+}
+
+.scoring-page {
+    height: 100%;
+}
