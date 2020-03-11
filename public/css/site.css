@@ -90,9 +90,19 @@ footer {
     width: 10vw;
 }
 
+.score-stat {
+    margin-top: 1vh;
+    font-size: smaller;
+    color: #4b4b4b;
+}
+
 .low-focus {
     color: grey;
     font-size: small;
+}
+
+.stat{
+    margin-right: 2vw;
 }
 
 .scoring-page {
