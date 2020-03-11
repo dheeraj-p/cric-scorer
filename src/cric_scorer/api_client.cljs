@@ -10,3 +10,14 @@
       (.then js->clj)
       (.then on-success)
       (.catch (comp on-failure js->clj))))
+
+(defn http-get [url _params on-success on-failure]
+    (-> url
+        (js/fetch)
+        (.then #(.json %))
+        (.then js->clj)
+        (.then on-success)
+        (.catch (comp on-failure js->clj))))
+
+(defn fetch-action [on-success on-failure]
+    (http-get "http://localhost:8000/match-action" {} #(-> (keyword (get % "action")) on-success) on-failure))

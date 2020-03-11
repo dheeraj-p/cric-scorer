@@ -1,9 +1,10 @@
 (ns cric-scorer.core
   (:require [reagent.core :as r]
-              [reitit.frontend :as rf]
+            [reitit.frontend :as rf]
             [reitit.frontend.easy :as rfe]
             [cric-scorer.home_page :refer [home]]
-            [cric-scorer.game_page :refer [game]]))
+            [cric-scorer.select_initial_players_page :refer [select-initial-players]]
+            [cric-scorer.api_client :refer [fetch-action]]))
 
 (defonce match (r/atom nil))
 
@@ -18,6 +19,11 @@
            (let [view (:view (:data @match))]
              [view @match]))])
 
+(defn perform-action [action]
+  (case action
+    :ACTION_SELECT_INITIAL_PLAYERS (rfe/push-state :select-initial-players)
+    :ACTION_CREATE_GAME (rfe/push-state :home)))
+
 (defn app-root []
   [:div [header] [main-content] [footer]])
 
@@ -25,11 +31,12 @@
   [["/"
     {:name :home
      :view home}]
-   ["/game"
-    {:name :game
-     :view game}]])
+   ["/select_initial_players"
+    {:name :select-initial-players
+     :view select-initial-players}]])
 
 (defn mount-root []
+  (fetch-action perform-action #())
   (r/render [app-root] (.getElementById js/document "app")))
 
 (defn init! []
