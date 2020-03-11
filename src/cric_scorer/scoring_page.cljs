@@ -23,10 +23,26 @@
    (map (fn [run]
           [:span.run {:class (str "run-" run)} run]) current-over)])
 
+(defn display-table [headers rows]
+  [:table
+   [:thead
+    (map (fn [val] [:th val]) headers)]
+   [:tbody (map
+             (fn [row] [:tr
+                        (map (fn [val] [:td val]) row)]) rows)]])
+
+(defn current-players-display [batsmans bowler]
+  [:div.score-comp.current-player-comp
+   (display-table ["BATSPERSON" "R" "B" "4s" "6s" "SR"] (map vals batsmans))
+   (display-table ["BOWLER" "O" "M" "R" "W" "EC"] (vector (vals bowler)))])
+
 (defn scoring-page [match]
   [:div.scoring-page
    (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 10 :wickets 2}
                   :team2       {:name "Dheeraj's" :over 0.0 :runs 0 :wickets 0}
                   :stat        {:CRR 2.2 :RRR 3}
                   :total-overs 12})
+   (current-players-display [{:name "Tilak" :runs 6 :balls 2 :4s 0 :6s 1 :SR 300}
+                             {:name "Phani" :runs 6 :balls 4 :4s 1 :6s 0 :SR 150}]
+                            {:name "Dheeraj" :overs 1 :m 0 :runs 10 :wickets 0 :ec 10})
    (current-over-display [1, 2, 4, "W"])])

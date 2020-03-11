@@ -113,11 +113,12 @@ footer {
 }
 
 .run {
-    padding: 1vh 1.5vh;
+    padding: 0.5vh 1.5vw;
     border-radius: 2vh;
     margin: 0 1vw;
     background: transparent;
     border: 1px solid #393939;
+    font-size: smaller;
 }
 
 .run-4, .run-6 {
@@ -133,4 +134,19 @@ footer {
 .this-over-comp {
     display: flex;
     align-items: center;
+}
+
+.current-player-comp {
+    display: flex;
+    flex-direction: column;
+}
+
+
+.current-player-comp > table {
+    width: 100%;
+}
+
+
+.current-player-comp > table > thead,tbody > th,td {
+    text-align: left;
 }
