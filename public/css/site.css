@@ -55,7 +55,6 @@ footer {
 
 .score-comp {
     display: flex;
-    flex-direction: column;
 
     width: 90vw;
     margin: 2vh 0;
@@ -66,6 +65,10 @@ footer {
     border-radius: 1vw;
 
     font-size: larger;
+}
+
+.score-header {
+    flex-direction: column;
 }
 
 .score {
@@ -101,10 +104,33 @@ footer {
     font-size: small;
 }
 
-.stat{
+.stat {
     margin-right: 2vw;
 }
 
 .scoring-page {
     height: 100%;
+}
+
+.run {
+    padding: 1vh 1.5vh;
+    border-radius: 2vh;
+    margin: 0 1vw;
+    background: transparent;
+    border: 1px solid #393939;
+}
+
+.run-4, .run-6 {
+    background: grey;
+    color: white
+}
+
+.run-W {
+    background: #c20000;
+    color: white
+}
+
+.this-over-comp {
+    display: flex;
+    align-items: center;
 }
