@@ -1,17 +1,13 @@
 (ns cric-scorer.home_page
   (:require [reagent.core :as r]
-            [reagent.cookies :as cookies]
             [reitit.frontend.easy :as rfe]
-            [cric-scorer.api_client :refer [http-post]]
-            [cric-scorer.utils :refer [redirect-to alert]]))
+            [cric-scorer.api_client :refer [register-match]]
+            [cric-scorer.utils :refer [alert]]))
 
 (defonce game-data (r/atom {:first-team "First Team" :second-team "Second Team" :overs 0}))
 
-(defn on-game-start [_]
+(defn redirect-to-next-page [_]
   (rfe/push-state :select-initial-players))
-
-(defn start-match []
-  (http-post "http://localhost:8000/start-match" @game-data on-game-start alert))
 
 (defn on-change-team-name [property event]
   (r/rswap! game-data assoc property (.-target.value event)))
@@ -27,4 +23,4 @@
    [:input.size-large {:type "text" :placeholder "First Team" :on-change change-first-team-name}]
    [:input.size-large {:type "text" :placeholder "Second Team" :on-change change-second-team-name}]
    [:input.size-large {:type "number" :placeholder "Overs" :min-length 1 :on-change change-number-of-overs}]
-   [:button.size-large {:on-click start-match} "Start Match"]])
+   [:button.size-large {:on-click #(register-match @game-data redirect-to-next-page alert)} "Start Match"]])
