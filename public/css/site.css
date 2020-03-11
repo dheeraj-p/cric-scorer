@@ -55,39 +55,42 @@ footer {
 
 .score-comp {
     display: flex;
-    border: 1px rgba(128, 128, 128, 0.6) solid;
-    background: rgba(128, 128, 128, 0.13);
-    padding: 4vw;
-    border-radius: 1vw;
+    flex-direction: column;
+
     width: 90vw;
     margin: 2vh 0;
+
+    border: 1px rgba(128, 128, 128, 0.6) solid;
+    background: rgba(128, 128, 128, 0.13);
+    padding: 2vh 4vw;
+    border-radius: 1vw;
+
+    font-size: larger;
 }
 
 .score {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
     justify-content: space-between;
-    font-size: larger;
-    align-items: flex-end;
-    width: 70vw;
-    display: flex;
-    height: 100%;
 }
 
-.value-display {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+.score-info {
+    width: 30vw;
 }
 
-.value-header{
-    margin-bottom: 1vh;
+.runs-info {
+    display: flex;
 }
 
 .runs {
-    font-size: 4vh;
-    margin-right: 1vw ;
+    display: block;
+    font-weight: bolder;
+    width: 10vw;
 }
 
-.low-focus{
+.low-focus {
     color: grey;
     font-size: small;
 }

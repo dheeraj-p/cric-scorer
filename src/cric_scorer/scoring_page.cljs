@@ -1,18 +1,17 @@
 (ns cric-scorer.scoring_page)
 
-(defn score-display [team-name score]
-  [:div.value-display
-   [:span.value-header.team-name team-name]
-   [:span [:span.runs (str (:runs score) " - " (:wickets score))]
-    [:span (str "( " (:over score) " )")]]])
+(defn score-display [score-info total-overs]
+  [:div.score
+   [:div [:span (:name score-info)]]
+   [:div.score-info [:span.runs-info [:span.runs (str (:runs score-info) " / " (:wickets score-info))]
+          [:span (str "( " (:over score-info) " / " total-overs " )")]]]])
 
-(defn run-rate-display [run-rate]
-  [:div.value-display
-   [:span.value-header.low-focus "CRR"]
-   [:span.run-rate run-rate]])
-
-(defn score-header [team-name score run-rate]
-  [:div.score-comp [:div.score (score-display team-name score) (run-rate-display run-rate)]])
+(defn score-header [score-infos]
+  [:div.score-comp
+   (score-display (:team1 score-infos) (:total-overs score-infos))
+   (score-display (:team2 score-infos) (:total-overs score-infos))])
 
 (defn scoring-page [match]
-  [:div.scoring-page (score-header "Tilak's" {:over 4.4 :runs 10 :wickets 2} 2.2)])
+  [:div.scoring-page (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 10 :wickets 2}
+                                    :team2       {:name "Dheeraj's" :over 0.0 :runs 0 :wickets 0}
+                                    :total-overs 12})])
