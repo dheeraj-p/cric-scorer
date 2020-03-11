@@ -38,11 +38,11 @@
 
 (defn scoring-page [match]
   [:div.scoring-page
-   (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 10 :wickets 2}
+   (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 30 :wickets 2}
                   :team2       {:name "Dheeraj's" :over 0.0 :runs 0 :wickets 0}
                   :stat        {:CRR 2.2 :RRR 3}
                   :total-overs 12})
-   (current-players-display [{:name "Tilak" :runs 6 :balls 2 :4s 0 :6s 1 :SR 300}
-                             {:name "Phani" :runs 6 :balls 4 :4s 1 :6s 0 :SR 150}]
-                            {:name "Dheeraj" :overs 1 :m 0 :runs 10 :wickets 0 :ec 10})
-   (current-over-display [1, 2, 4, "W"])])
+   (current-players-display [{:name "Tilak" :runs 7 :balls 2 :4s 0 :6s 1 :SR 350}
+                             {:name "Phani" :runs 4 :balls 1 :4s 1 :6s 0 :SR 400}]
+                            {:name "Dheeraj" :overs 0.4 :m 0 :runs 11 :wickets 1 :ec 15})
+   (current-over-display [6, 1, "W", 4])])
