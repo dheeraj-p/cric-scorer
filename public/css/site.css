@@ -202,13 +202,13 @@ footer {
 .extra-options {
     display: flex;
     flex-wrap: wrap;
-    width: 20vw;
+    width: 30vw;
     height: 18vh;
     padding: 1vh;
 }
 
 .option-btn {
-    width: 20vw;
+    width: 30vw;
     height: 5vh;
     padding: 0;
 }
