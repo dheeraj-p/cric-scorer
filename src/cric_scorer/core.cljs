@@ -23,7 +23,8 @@
 (defn perform-action [action]
   (case action
     :ACTION_SELECT_INITIAL_PLAYERS (rfe/push-state :select-initial-players)
-    :ACTION_CREATE_GAME (rfe/push-state :home)))
+    :ACTION_CREATE_GAME (rfe/push-state :home)
+    :ACTION_PLAY (rfe/push-state :scoring-page)))
 
 (defn app-root []
   [:div [header] [main-content] [footer]])
@@ -40,7 +41,7 @@
      :view scoring-page}]])
 
 (defn mount-root []
-  ;(fetch-action perform-action #())
+  (fetch-action perform-action #())
   (r/render [app-root] (.getElementById js/document "app")))
 
 (defn init! []

@@ -24,3 +24,6 @@
 
 (defn register-match [game-data on-success on-failure]
     (http-post "http://localhost:8000/register-match" game-data on-success on-failure))
+
+(defn register-initial-players [player-names on-success on-failure]
+    (http-post "http://localhost:8000/register-initial-players" player-names on-success on-failure))
