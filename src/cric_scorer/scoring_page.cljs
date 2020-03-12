@@ -74,10 +74,15 @@
                                                 #(when (= (.-key %) "Enter")
                                                           (on-runs-input (.-value (.-target %))))}]]))
 
-(defn extra-options-display []
-  [:div.score-comp.extra-options (map (fn [text] [:button.option-btn text]) ["Undo" "Swap Batsman" "Retire"])])
+(defn extra-options-display [options-funcs]
+  [:div.score-comp.extra-options
+   (println (first options-funcs))
+   (map (fn [option] [:button.option-btn {:on-click (fn [x] (second option))} (first option)])
+        { "Undo" (first options-funcs)
+         "Swap Batsman" (second options-funcs)
+         "Retire" (last options-funcs)})])
 
-(defn scoring-page [match on-runs-input]
+(defn scoring-page [match on-runs-input options-funcs]
   [:div.scoring-page
    (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 30 :wickets 2}
                   :team2       {:name "Dheeraj's" :over 0.0 :runs 0 :wickets 0}
@@ -89,4 +94,4 @@
    (current-over-display [6, 1, "W", 4])
    (ball-type-display)
    (select-runs-display (partial println))
-   (extra-options-display)])
+   (extra-options-display [identity identity identity])])
