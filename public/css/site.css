@@ -58,7 +58,7 @@ footer {
     display: flex;
 
     width: 90vw;
-    margin: 2vh 0;
+    margin: 1vh 0;
 
     border: 1px rgba(128, 128, 128, 0.6) solid;
     background: rgba(128, 128, 128, 0.13);
@@ -107,6 +107,9 @@ footer {
 
 .scoring-page {
     height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .run {
@@ -144,7 +147,7 @@ footer {
 }
 
 
-.current-player-comp > table > thead,tbody > th,td {
+.current-player-comp > table > thead, tbody > th, td {
     text-align: left;
 }
 
@@ -169,7 +172,7 @@ footer {
     color: white;
 }
 
-.select-runs-option{
+.select-runs-option {
     height: 3vh;
     padding: 2vh;
 
@@ -193,4 +196,20 @@ footer {
     width: 3.6vw;
     -moz-appearance: textfield;
     margin: 0;
+    border-bottom: 1px solid black;
 }
+
+.extra-options {
+    display: flex;
+    flex-wrap: wrap;
+    width: 20vw;
+    height: 18vh;
+    padding: 1vh;
+}
+
+.option-btn {
+    width: 20vw;
+    height: 5vh;
+    padding: 0;
+}
+

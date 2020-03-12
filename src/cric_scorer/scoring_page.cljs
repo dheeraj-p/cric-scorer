@@ -68,6 +68,9 @@
    (map (fn [run] [:div.select-runs-option run]) [0 1 2 3 4 5 6])
    [:input.select-runs-option.runs-input {:type :number}]])
 
+(defn extra-options-display []
+  [:div.score-comp.extra-options (map (fn [text] [:button.option-btn text]) ["Undo" "Swap Batsman" "Retire"])])
+
 (defn scoring-page [match]
   [:div.scoring-page
    (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 30 :wickets 2}
@@ -79,4 +82,5 @@
                             {:name "Dheeraj" :overs 0.4 :m 0 :runs 11 :wickets 1 :ec 15})
    (current-over-display [6, 1, "W", 4])
    (ball-type-display)
-   (select-runs-display)])
+   (select-runs-display)
+   (extra-options-display)])
