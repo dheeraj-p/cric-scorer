@@ -122,7 +122,7 @@ footer {
 }
 
 .run-4, .run-6 {
-    background: grey;
+    background: green;
     color: white
 }
 
@@ -149,4 +149,22 @@ footer {
 
 .current-player-comp > table > thead,tbody > th,td {
     text-align: left;
+}
+
+.ball-types {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.ball-type {
+    width: 15vw;
+    border: 1px black solid;
+    border-radius: 1vw;
+    text-align: center;
+    padding: 1vh 0;
+}
+
+.selected-type {
+    background: grey;
+    color: white;
 }

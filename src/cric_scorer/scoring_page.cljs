@@ -1,5 +1,20 @@
 (ns cric-scorer.scoring_page)
 
+
+(defn toggle-class [ele toggled-class]
+  (let [el-classList (.-classList ele)]
+    (if (.contains el-classList toggled-class)
+      (.remove el-classList toggled-class)
+      (.add el-classList toggled-class))))
+
+
+(defn toggle-ele [ele list]
+  (if (some #(= ele %) list)
+    (remove #(= ele %) list)
+    (conj list ele)))
+
+(defonce ball-types (atom []))
+
 (defn score-display [score-info total-overs]
   [:div.score
    [:div [:span (:name score-info)]]
@@ -26,7 +41,7 @@
 (defn display-table [headers rows]
   [:table
    [:thead
-    (map (fn [val] [:th val]) headers)]
+    [:tr (map (fn [val] [:th val]) headers)]]
    [:tbody (map
              (fn [row] [:tr
                         (map (fn [val] [:td val]) row)]) rows)]])
@@ -35,6 +50,18 @@
   [:div.score-comp.current-player-comp
    (display-table ["BATSPERSON" "R" "B" "4s" "6s" "SR"] (map vals batsmans))
    (display-table ["BOWLER" "O" "M" "R" "W" "EC"] (vector (vals bowler)))])
+
+(defn ball-type-toggle [ball-type, a] (do
+                             (toggle-class (.-target a) "selected-type")
+                             (swap! ball-types #(toggle-ele ball-type %))
+                             (println ball-types)))
+
+(defn ball-type-div [type]
+  [:div.ball-type {:on-click #(ball-type-toggle type %)} type])
+
+(defn ball-type-display []
+  (let [ball-types ["Wide" "No Ball"  "Byes" "Leg Byes" "Wicket"]]
+    [:div.score-comp.ball-types (map ball-type-div ball-types)]))
 
 (defn scoring-page [match]
   [:div.scoring-page
@@ -45,4 +72,5 @@
    (current-players-display [{:name "Tilak" :runs 7 :balls 2 :4s 0 :6s 1 :SR 350}
                              {:name "Phani" :runs 4 :balls 1 :4s 1 :6s 0 :SR 400}]
                             {:name "Dheeraj" :overs 0.4 :m 0 :runs 11 :wickets 1 :ec 15})
-   (current-over-display [6, 1, "W", 4])])
+   (current-over-display [6, 1, "W", 4])
+   (ball-type-display)])
