@@ -53,8 +53,7 @@
 
 (defn ball-type-toggle [ball-type, a] (do
                              (toggle-class (.-target a) "selected-type")
-                             (swap! ball-types #(toggle-ele ball-type %))
-                             (println ball-types)))
+                             (swap! ball-types #(toggle-ele ball-type %))))
 
 (defn ball-type-div [type]
   [:div.ball-type {:on-click #(ball-type-toggle type %)} type])
@@ -63,15 +62,22 @@
   (let [ball-types ["Wide" "No Ball"  "Byes" "Leg Byes" "Wicket"]]
     [:div.score-comp.ball-types (map ball-type-div ball-types)]))
 
-(defn select-runs-display []
-  [:div.score-comp.select-runs
-   (map (fn [run] [:div.select-runs-option run]) [0 1 2 3 4 5 6])
-   [:input.select-runs-option.runs-input {:type :number}]])
+
+(defn select-run-div [on-runs-input run]
+  [:div.select-runs-option {:on-click #(on-runs-input (.-innerText (.-target %)))} run])
+
+(defn select-runs-display [on-runs-input]
+  (let [on-runs-input (partial on-runs-input @ball-types)]
+    [:div.score-comp.select-runs
+   (map (partial select-run-div on-runs-input) [0 1 2 3 4 5 6])
+   [:input.select-runs-option.runs-input {:type :number :on-key-press
+                                                #(when (= (.-key %) "Enter")
+                                                          (on-runs-input (.-value (.-target %))))}]]))
 
 (defn extra-options-display []
   [:div.score-comp.extra-options (map (fn [text] [:button.option-btn text]) ["Undo" "Swap Batsman" "Retire"])])
 
-(defn scoring-page [match]
+(defn scoring-page [match on-runs-input]
   [:div.scoring-page
    (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 30 :wickets 2}
                   :team2       {:name "Dheeraj's" :over 0.0 :runs 0 :wickets 0}
@@ -82,5 +88,5 @@
                             {:name "Dheeraj" :overs 0.4 :m 0 :runs 11 :wickets 1 :ec 15})
    (current-over-display [6, 1, "W", 4])
    (ball-type-display)
-   (select-runs-display)
+   (select-runs-display (partial println))
    (extra-options-display)])
