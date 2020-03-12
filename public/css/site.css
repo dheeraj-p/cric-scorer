@@ -4,6 +4,7 @@ body {
     padding: 0;
     margin: 0;
     font-size: 80%;
+    font-family: sans-serif;
 }
 
 header {
@@ -79,10 +80,6 @@ footer {
     justify-content: space-between;
 }
 
-.score-info {
-    width: 30vw;
-}
-
 .runs-info {
     display: flex;
 }
@@ -90,7 +87,7 @@ footer {
 .runs {
     display: block;
     font-weight: bolder;
-    width: 10vw;
+    width: 14vw;
 }
 
 .score-stat {
@@ -162,6 +159,9 @@ footer {
     border-radius: 1vw;
     text-align: center;
     padding: 1vh 0;
+
+    font-size: smaller;
+    font-weight: 700;
 }
 
 .selected-type {
