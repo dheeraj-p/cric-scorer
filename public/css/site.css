@@ -168,3 +168,29 @@ footer {
     background: grey;
     color: white;
 }
+
+.select-runs-option{
+    height: 3vh;
+    padding: 2vh;
+
+    border-radius: 4vh;
+    margin: 0 2vw;
+    background: transparent;
+    border: 1px solid #393939;
+
+    font-size: large;
+}
+
+.select-runs {
+    width: 60vw;
+    height: 18vh;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 1vh;
+}
+
+.runs-input {
+    width: 3.6vw;
+    -moz-appearance: textfield;
+    margin: 0;
+}

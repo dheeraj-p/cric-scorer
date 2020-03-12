@@ -63,6 +63,11 @@
   (let [ball-types ["Wide" "No Ball"  "Byes" "Leg Byes" "Wicket"]]
     [:div.score-comp.ball-types (map ball-type-div ball-types)]))
 
+(defn select-runs-display []
+  [:div.score-comp.select-runs
+   (map (fn [run] [:div.select-runs-option run]) [0 1 2 3 4 5 6])
+   [:input.select-runs-option.runs-input {:type :number}]])
+
 (defn scoring-page [match]
   [:div.scoring-page
    (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 30 :wickets 2}
@@ -73,4 +78,5 @@
                              {:name "Phani" :runs 4 :balls 1 :4s 1 :6s 0 :SR 400}]
                             {:name "Dheeraj" :overs 0.4 :m 0 :runs 11 :wickets 1 :ec 15})
    (current-over-display [6, 1, "W", 4])
-   (ball-type-display)])
+   (ball-type-display)
+   (select-runs-display)])
