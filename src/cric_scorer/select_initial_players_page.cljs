@@ -16,7 +16,7 @@
 (def update-bowler-name (partial update-player-name :bowler))
 
 (defn redirect-to-scoring-page [_]
-  (rfe/push-state :scoring-page))
+  (rfe/push-state :cric-scorer.core/scoring-page))
 
 (defn on-click-next []
   (register-initial-players initial-players-data redirect-to-scoring-page alert))

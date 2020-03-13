@@ -7,7 +7,7 @@
 (defonce game-data (r/atom {:first-team "First Team" :second-team "Second Team" :overs 0}))
 
 (defn redirect-to-next-page [_]
-  (rfe/push-state :select-initial-players))
+  (rfe/push-state :cric-scorer.core/select-initial-players))
 
 (defn on-change-team-name [property event]
   (r/rswap! game-data assoc property (.-target.value event)))

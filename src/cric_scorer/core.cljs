@@ -22,22 +22,22 @@
 
 (defn perform-action [action]
   (case action
-    :ACTION_SELECT_INITIAL_PLAYERS (rfe/push-state :select-initial-players)
-    :ACTION_CREATE_GAME (rfe/push-state :home)
-    :ACTION_PLAY (rfe/push-state :scoring-page)))
+    :ACTION_SELECT_INITIAL_PLAYERS (rfe/push-state ::select-initial-players)
+    :ACTION_CREATE_GAME (rfe/push-state ::home)
+    :ACTION_PLAY (rfe/push-state ::scoring-page)))
 
 (defn app-root []
   [:div [header] [main-content] [footer]])
 
 (def routes
   [["/"
-    {:name :home
+    {:name ::home
      :view home}]
    ["/select_initial_players"
-    {:name :select-initial-players
+    {:name ::select-initial-players
      :view select-initial-players}]
    ["/scoring-page"
-    {:name :scoring-page
+    {:name ::scoring-page
      :view scoring-page}]])
 
 (defn mount-root []
