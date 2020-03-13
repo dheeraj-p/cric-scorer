@@ -1,6 +1,6 @@
 (ns cric-scorer.scoring_page
   (:require [reagent.core :as r]
-            [cric-scorer.api_client :refer [fetch-match-data]]))
+            [cric-scorer.api_client :refer [fetch-match-data update-match-data]]))
 
 (defn debug [x] (println x) x)
 
@@ -51,7 +51,7 @@
 
 (defn current-players-display [batsmans bowler]
   [:div.score-comp.current-player-comp
-   (display-table ["BATSPERSON" "R" "B" "4s" "6s" "SR"] (map vals (debug batsmans)))
+   (display-table ["BATSPERSON" "R" "B" "4s" "6s" "SR"] (map vals batsmans))
    (display-table ["BOWLER" "O" "M" "R" "W" "EC"] (vector (vals bowler)))])
 
 (defn ball-type-toggle [ball-type, a] (do
@@ -70,7 +70,7 @@
   [:div.select-runs-option {:on-click #(on-runs-input (.-innerText (.-target %)))} run])
 
 (defn select-runs-display [on-runs-input]
-  (let [on-runs-input (partial on-runs-input @ball-types)]
+  (let [on-runs-input #(on-runs-input @ball-types %)]
     [:div.score-comp.select-runs
      (map (partial select-run-div on-runs-input) [0 1 2 3 4 5 6])
      [:input.select-runs-option.runs-input {:type :number :on-key-press
@@ -79,7 +79,6 @@
 
 (defn extra-options-display [options-funcs]
   [:div.score-comp.extra-options
-   (println (first options-funcs))
    (map (fn [option] [:button.option-btn {:on-click (fn [x] (second option))} (first option)])
         {"Undo"         (first options-funcs)
          "Swap Batsman" (second options-funcs)
@@ -87,15 +86,17 @@
 
 (defonce match-state (r/atom {}))
 
+(defn update-match [ball-type runs]
+  (update-match-data [ball-type runs] #(r/rswap! match-state (constantly %)) identity))
 
-(defn scoring-page-component [on-runs-input options-funcs]
+(defn scoring-page-component [options-funcs]
   [:div.scoring-page
    (score-header (:score-header @match-state))
    (current-players-display (:current-batsmen-stats @match-state)
                             (:current-bowler-stats @match-state))
    (current-over-display (:current-over @match-state))
    (ball-type-display)
-   (select-runs-display (partial println))
+   (select-runs-display update-match)
    (extra-options-display [identity identity identity])])
 
 (def scoring-page (with-meta scoring-page-component
