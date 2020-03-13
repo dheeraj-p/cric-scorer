@@ -59,7 +59,7 @@
                                         (swap! ball-types #(toggle-ele ball-type %))))
 
 (defn ball-type-div [type]
-  [:div.ball-type {:on-click #(ball-type-toggle type %)} type])
+  [:div.ball-type {:id type :on-click #(ball-type-toggle type %)} type])
 
 (defn ball-type-display []
   (let [ball-types ["Wide" "No Ball" "Byes" "Leg Byes" "Wicket"]]
@@ -86,8 +86,14 @@
 
 (defonce match-state (r/atom {}))
 
-(defn update-match [ball-type runs]
-  (update-match-data [ball-type runs] #(r/rswap! match-state (constantly %)) identity))
+(defn reset-ball-type []
+  (doseq [ball-type @ball-types]
+    (.remove (.-classList (.getElementById js/document ball-type)) "selected-type"))
+  (reset! ball-types []))
+
+(defn update-match [ball-types runs]
+  (update-match-data [ball-types runs] #(r/rswap! match-state (constantly %)) identity)
+  (reset-ball-type))
 
 (defn scoring-page-component [options-funcs]
   [:div.scoring-page
