@@ -27,3 +27,7 @@
 
 (defn register-initial-players [player-names on-success on-failure]
     (http-post "http://localhost:8000/register-initial-players" player-names on-success on-failure))
+
+(defn fetch-match-data [on-success on-failure]
+    (http-get "http://localhost:8000/match-data" {} #(-> (clojure.walk/keywordize-keys %)
+                                                         on-success) on-failure))

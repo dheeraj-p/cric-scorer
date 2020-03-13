@@ -1,5 +1,8 @@
-(ns cric-scorer.scoring_page)
+(ns cric-scorer.scoring_page
+  (:require [reagent.core :as r]
+            [cric-scorer.api_client :refer [fetch-match-data]]))
 
+(defn debug [x] (println x) x)
 
 (defn toggle-class [ele toggled-class]
   (let [el-classList (.-classList ele)]
@@ -48,18 +51,18 @@
 
 (defn current-players-display [batsmans bowler]
   [:div.score-comp.current-player-comp
-   (display-table ["BATSPERSON" "R" "B" "4s" "6s" "SR"] (map vals batsmans))
+   (display-table ["BATSPERSON" "R" "B" "4s" "6s" "SR"] (map vals (debug batsmans)))
    (display-table ["BOWLER" "O" "M" "R" "W" "EC"] (vector (vals bowler)))])
 
 (defn ball-type-toggle [ball-type, a] (do
-                             (toggle-class (.-target a) "selected-type")
-                             (swap! ball-types #(toggle-ele ball-type %))))
+                                        (toggle-class (.-target a) "selected-type")
+                                        (swap! ball-types #(toggle-ele ball-type %))))
 
 (defn ball-type-div [type]
   [:div.ball-type {:on-click #(ball-type-toggle type %)} type])
 
 (defn ball-type-display []
-  (let [ball-types ["Wide" "No Ball"  "Byes" "Leg Byes" "Wicket"]]
+  (let [ball-types ["Wide" "No Ball" "Byes" "Leg Byes" "Wicket"]]
     [:div.score-comp.ball-types (map ball-type-div ball-types)]))
 
 
@@ -69,29 +72,31 @@
 (defn select-runs-display [on-runs-input]
   (let [on-runs-input (partial on-runs-input @ball-types)]
     [:div.score-comp.select-runs
-   (map (partial select-run-div on-runs-input) [0 1 2 3 4 5 6])
-   [:input.select-runs-option.runs-input {:type :number :on-key-press
-                                                #(when (= (.-key %) "Enter")
-                                                          (on-runs-input (.-value (.-target %))))}]]))
+     (map (partial select-run-div on-runs-input) [0 1 2 3 4 5 6])
+     [:input.select-runs-option.runs-input {:type :number :on-key-press
+                                                  #(when (= (.-key %) "Enter")
+                                                     (on-runs-input (.-value (.-target %))))}]]))
 
 (defn extra-options-display [options-funcs]
   [:div.score-comp.extra-options
    (println (first options-funcs))
    (map (fn [option] [:button.option-btn {:on-click (fn [x] (second option))} (first option)])
-        { "Undo" (first options-funcs)
+        {"Undo"         (first options-funcs)
          "Swap Batsman" (second options-funcs)
-         "Retire" (last options-funcs)})])
+         "Retire"       (last options-funcs)})])
 
-(defn scoring-page [match on-runs-input options-funcs]
+(defonce match-state (r/atom {}))
+
+
+(defn scoring-page-component [on-runs-input options-funcs]
   [:div.scoring-page
-   (score-header {:team1       {:name "Tilak's" :over 4.4 :runs 30 :wickets 2}
-                  :team2       {:name "Dheeraj's" :over 0.0 :runs 0 :wickets 0}
-                  :stat        {:CRR 2.2 :RRR 3}
-                  :total-overs 12})
-   (current-players-display [{:name "Tilak" :runs 7 :balls 2 :4s 0 :6s 1 :SR 350}
-                             {:name "Phani" :runs 4 :balls 1 :4s 1 :6s 0 :SR 400}]
-                            {:name "Dheeraj" :overs 0.4 :m 0 :runs 11 :wickets 1 :ec 15})
-   (current-over-display [6, 1, "W", 4])
+   (score-header (:score-header @match-state))
+   (current-players-display (:current-batsmen-stats @match-state)
+                            (:current-bowler-stats @match-state))
+   (current-over-display (:current-over @match-state))
    (ball-type-display)
    (select-runs-display (partial println))
    (extra-options-display [identity identity identity])])
+
+(def scoring-page (with-meta scoring-page-component
+                             {:component-did-mount (fn [] (fetch-match-data #(r/rswap! match-state (constantly %)) identity))}))

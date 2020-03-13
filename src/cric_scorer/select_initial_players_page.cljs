@@ -19,7 +19,7 @@
   (rfe/push-state :cric-scorer.core/scoring-page))
 
 (defn on-click-next []
-  (register-initial-players initial-players-data redirect-to-scoring-page alert))
+  (register-initial-players @initial-players-data redirect-to-scoring-page alert))
 
 (defn select-initial-players [] [:div.flex-container-small
                                  [:input.size-large {:type "text" :placeholder "Striker" :on-change update-striker-name}]
