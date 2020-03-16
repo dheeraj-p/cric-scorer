@@ -31,6 +31,6 @@
 (defn fetch-match-data [on-success on-failure]
   (http-get "http://localhost:8000/match-data" {} #(-> (clojure.walk/keywordize-keys %)
                                                        on-success) on-failure))
-(defn update-match-data [ball-info on-success on-failure]
-  (http-post "http://localhost:8000/update-match-data" ball-info #(-> (clojure.walk/keywordize-keys %)
+(defn play-ball [ball-info on-success on-failure]
+  (http-post "http://localhost:8000/play-ball" ball-info #(-> (clojure.walk/keywordize-keys %)
                                                                       on-success) on-failure))

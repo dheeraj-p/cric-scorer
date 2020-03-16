@@ -1,6 +1,6 @@
 (ns cric-scorer.scoring_page
   (:require [reagent.core :as r]
-            [cric-scorer.api_client :refer [fetch-match-data update-match-data]]))
+            [cric-scorer.api_client :refer [fetch-match-data play-ball]]))
 
 (defn debug [x] (println x) x)
 
@@ -92,7 +92,7 @@
   (reset! ball-types []))
 
 (defn update-match [ball-types runs]
-  (update-match-data [ball-types runs] #(r/rswap! match-state (constantly %)) identity)
+  (play-ball [ball-types runs] #(r/rswap! match-state (constantly %)) identity)
   (reset-ball-type))
 
 (defn scoring-page-component [options-funcs]
