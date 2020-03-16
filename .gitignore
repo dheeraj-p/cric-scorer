@@ -20,4 +20,5 @@ pom.xml.asc
 .idea/**/shelf
 .idea/**/contentModel.xml
 .idea/**/libraries
+.idea/misc.xml
 /.env
